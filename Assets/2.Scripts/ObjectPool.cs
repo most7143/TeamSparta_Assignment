@@ -15,6 +15,8 @@ public class ObjectPool : MonoBehaviour
 
     private List<GameObject> _floaty = new();
 
+    public int Count;
+
     public static ObjectPool Instance
     {
         get { return _instance; }
@@ -27,7 +29,7 @@ public class ObjectPool : MonoBehaviour
             _instance = this;
         }
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < Count; i++)
         {
             GameObject monster = Instantiate(Monster);
 
@@ -35,26 +37,30 @@ public class ObjectPool : MonoBehaviour
             {
                 _monsters.Add(monster);
                 monster.SetActive(false);
+
+                monster.transform.SetParent(transform);
             }
         }
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < Count; i++)
         {
             GameObject bullet = Instantiate(Bullet);
 
             if (bullet != null)
             {
                 _bullets.Add(bullet);
+                bullet.transform.SetParent(transform);
                 bullet.SetActive(false);
             }
         }
 
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < Count; i++)
         {
             GameObject floaty = Instantiate(UIFloaty);
             if (floaty != null)
             {
                 _floaty.Add(floaty);
+                floaty.transform.SetParent(transform);
                 floaty.SetActive(false);
             }
         }
@@ -75,7 +81,7 @@ public class ObjectPool : MonoBehaviour
         if (monster != null)
         {
             _monsters.Add(monster);
-
+            monster.transform.SetParent(transform);
             return monster;
         }
 

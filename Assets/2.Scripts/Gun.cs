@@ -43,7 +43,6 @@ public class Gun : MonoBehaviour
 
             bullet.gameObject.SetActive(true);
             bullet.Damage = Damage;
-
             bullet.transform.position = Point.position;
             bullet.transform.rotation = transform.rotation;
         }

@@ -73,7 +73,6 @@ public class Monster : Character
                     _hitRight = true;
 
                     Jump();
-
                     return;
                 }
 

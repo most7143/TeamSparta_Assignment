@@ -4,9 +4,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float Damage;
-
     public float Speed;
-
     public float AliveTime;
 
     private void OnEnable()

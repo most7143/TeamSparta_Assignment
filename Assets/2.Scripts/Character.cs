@@ -30,16 +30,8 @@ public class Character : MonoBehaviour
 
     public virtual void Dead()
     {
-        this.IsAlive = false;
+        IsAlive = false;
         gameObject.SetActive(false);
         CurrentHP = MaxHP;
-    }
-
-    private void Activate()
-    {
-    }
-
-    private void Deactivate()
-    {
     }
 }
