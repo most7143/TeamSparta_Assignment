@@ -24,6 +24,8 @@ public class Character : MonoBehaviour
         {
             Dead();
         }
+
+        ObjectPool.Instance.SpawnFloaty(transform, damage.ToString());
     }
 
     public virtual void Dead()

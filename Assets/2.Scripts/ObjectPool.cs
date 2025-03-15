@@ -7,10 +7,13 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject Monster;
     public GameObject Bullet;
+    public GameObject UIFloaty;
 
     private List<GameObject> _monsters = new();
 
     private List<GameObject> _bullets = new();
+
+    private List<GameObject> _floaty = new();
 
     public static ObjectPool Instance
     {
@@ -31,7 +34,7 @@ public class ObjectPool : MonoBehaviour
             if (monster != null)
             {
                 _monsters.Add(monster);
-                monster.gameObject.SetActive(false);
+                monster.SetActive(false);
             }
         }
 
@@ -42,7 +45,17 @@ public class ObjectPool : MonoBehaviour
             if (bullet != null)
             {
                 _bullets.Add(bullet);
-                bullet.gameObject.SetActive(false);
+                bullet.SetActive(false);
+            }
+        }
+
+        for (int i = 0; i < 15; i++)
+        {
+            GameObject floaty = Instantiate(UIFloaty);
+            if (floaty != null)
+            {
+                _floaty.Add(floaty);
+                floaty.SetActive(false);
             }
         }
     }
@@ -101,5 +114,23 @@ public class ObjectPool : MonoBehaviour
         }
 
         return _monsters[targetIndex].transform;
+    }
+
+    public void SpawnFloaty(Transform trans, string value)
+    {
+        for (int i = 0; i < _floaty.Count; i++)
+        {
+            if (false == _floaty[i].gameObject.activeSelf)
+            {
+                UIFloaty floaty = _floaty[i].GetComponent<UIFloaty>();
+
+                if (floaty != null)
+                {
+                    floaty.gameObject.SetActive(true);
+                    floaty.Spawn(value, trans.position);
+                    return;
+                }
+            }
+        }
     }
 }
