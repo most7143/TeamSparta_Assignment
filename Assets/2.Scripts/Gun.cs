@@ -2,17 +2,24 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    public float Damage;
+
     public float AttackSpeed;
 
     public Transform Point;
 
-    [HideInInspector] public Transform Target;
+    private Transform _target;
 
     private float _currentTime;
 
     private void Update()
     {
-        if (Target != null)
+        if (_target == null || false == _target.gameObject.activeSelf)
+        {
+            _target = ObjectPool.Instance.NearToMonster(transform);
+        }
+
+        if (_target != null)
         {
             TargetOn();
 
@@ -22,15 +29,6 @@ public class Gun : MonoBehaviour
             {
                 Shot();
                 _currentTime = 0f;
-            }
-        }
-        else
-        {
-            Transform target = ObjectPool.Instance.NearToMonster(transform);
-
-            if (target != null)
-            {
-                Target = target;
             }
         }
     }
@@ -44,18 +42,16 @@ public class Gun : MonoBehaviour
             Bullet bullet = obj.GetComponent<Bullet>();
 
             bullet.gameObject.SetActive(true);
+            bullet.Damage = Damage;
 
             bullet.transform.position = Point.position;
-
-            Vector3 dir = Target.position - transform.position;
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            bullet.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            bullet.transform.rotation = transform.rotation;
         }
     }
 
     public void TargetOn()
     {
-        Vector3 dir = Target.position - transform.position;
+        Vector3 dir = _target.position - transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }

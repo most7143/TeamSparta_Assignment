@@ -91,9 +91,10 @@ public class ObjectPool : MonoBehaviour
         {
             if (_monsters[i].activeSelf)
             {
-                if (Vector2.Distance(transform.position, _monsters[i].transform.position) <= distance)
+                float targetDistance = Vector2.Distance(transform.position, _monsters[i].transform.position);
+                if (targetDistance <= distance)
                 {
-                    distance = Vector2.Distance(transform.position, _monsters[i].transform.position);
+                    distance = targetDistance;
                     targetIndex = i;
                 }
             }

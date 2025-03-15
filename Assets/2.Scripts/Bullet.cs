@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public float Damage;
+
     public float Speed;
 
     public float AliveTime;
@@ -25,7 +27,7 @@ public class Bullet : MonoBehaviour
 
             if (monster != null)
             {
-                monster.Hit(20);
+                monster.Hit(Damage);
             }
         }
     }

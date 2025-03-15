@@ -2,8 +2,14 @@ public class Player : Character
 {
     public Gun Gun;
 
-    public override void Attack()
+    private void Start()
     {
-        base.Attack();
+        InitGun();
+    }
+
+    public void InitGun()
+    {
+        Gun.AttackSpeed = AttackSpeed;
+        Gun.Damage = Damage;
     }
 }

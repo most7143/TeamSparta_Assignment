@@ -3,44 +3,39 @@ using UnityEngine;
 public class Monster : Character
 {
     public Rigidbody2D Rigid;
+    public BoxCollider2D Collider;
 
     public int SpawnIndex;
     public float MoveSpeed;
 
     private bool _isStop;
 
-    private bool _hitDiagnal;
-    private bool _hitFloor;
     private bool _hitRight;
 
     private bool _isJumping;
     private float _distance = 0.2f;
 
-    public float FixY;
-
     private void Update()
     {
         RayCastRight();
-        RayCastFloor();
-        RayCastDiagonal();
 
         if (false == _isStop)
         {
             Move();
         }
-        else
-        {
-            if (_hitRight && _isJumping)
-            {
-                transform.position += new Vector3(1, 0, 0) * MoveSpeed * Time.deltaTime;
-            }
-        }
 
-        if (transform.position.y < FixY)
+        if (Rigid.velocity.y == 0)
         {
-            Rigid.bodyType = RigidbodyType2D.Kinematic;
-            transform.position = new Vector3(transform.position.x, FixY);
+            _isJumping = false;
         }
+    }
+
+    public void Init()
+    {
+        _isStop = false;
+        _isJumping = false;
+        _hitRight = false;
+        Rigid.velocity = Vector3.zero;
     }
 
     private void Move()
@@ -50,7 +45,7 @@ public class Monster : Character
 
     private void RayCastRight()
     {
-        Vector3 offset = new Vector3(-0.6f, 0.8f);
+        Vector3 offset = new Vector3(-0.8f, 0.8f);
 
         RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position + offset, transform.right, _distance);
 
@@ -77,14 +72,7 @@ public class Monster : Character
                 {
                     _hitRight = true;
 
-                    if (false == _hitDiagnal)
-                    {
-                        Jump();
-                    }
-                    else
-                    {
-                        _isStop = true;
-                    }
+                    Jump();
 
                     return;
                 }
@@ -92,80 +80,6 @@ public class Monster : Character
                 if (i == hits.Length - 1)
                 {
                     _hitRight = false;
-                }
-            }
-        }
-    }
-
-    private void RayCastFloor()
-    {
-        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.up, _distance);
-
-        Color hitColor = Color.yellow;
-
-        if (_hitFloor)
-        {
-            hitColor = Color.red;
-        }
-
-        Debug.DrawRay(transform.position, transform.up * _distance, hitColor);
-
-        if (Rigid.velocity.y < 0)
-        {
-            if (hits.Length > 0)
-            {
-                for (int i = 0; i < hits.Length; i++)
-                {
-                    if (TryNextMonster(hits[i]))
-                    {
-                        Rigid.bodyType = RigidbodyType2D.Kinematic;
-                        Rigid.velocity = Vector2.zero;
-                        _hitFloor = true;
-
-                        _isJumping = false;
-
-                        return;
-                    }
-
-                    if (i == hits.Length - 1)
-                    {
-                        _hitFloor = false;
-                    }
-                }
-            }
-        }
-    }
-
-    private void RayCastDiagonal()
-    {
-        Vector2 origin = transform.position + new Vector3(-0.2f, 0.8f);
-
-        Vector2 direction = new Vector2(-1, 1).normalized;
-
-        RaycastHit2D[] hits = Physics2D.RaycastAll(origin, direction, _distance * 3);
-
-        Color hitColor = Color.yellow;
-
-        if (_hitDiagnal)
-        {
-            hitColor = Color.red;
-        }
-
-        Debug.DrawRay(origin, direction * _distance * 3f, hitColor);
-
-        if (hits.Length > 0)
-        {
-            for (int i = 0; i < hits.Length; i++)
-            {
-                if (hits[i].collider.CompareTag("Box") || TryNextMonster(hits[i]))
-                {
-                    _hitDiagnal = true;
-                    return;
-                }
-
-                if (i == hits.Length - 1)
-                {
-                    _hitDiagnal = false;
                 }
             }
         }
@@ -194,8 +108,7 @@ public class Monster : Character
         if (false == _isJumping)
         {
             _isJumping = true;
-            Rigid.bodyType = RigidbodyType2D.Dynamic;
-            Rigid.AddForce(Vector2.up * 4f, ForceMode2D.Impulse);
+            Rigid.AddForce(Vector2.up * 5f, ForceMode2D.Impulse);
         }
     }
 }

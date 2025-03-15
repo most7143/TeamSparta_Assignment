@@ -16,10 +16,6 @@ public class Character : MonoBehaviour
         CurrentHP = MaxHP;
     }
 
-    public virtual void Attack()
-    {
-    }
-
     public virtual void Hit(float damage)
     {
         CurrentHP -= damage;

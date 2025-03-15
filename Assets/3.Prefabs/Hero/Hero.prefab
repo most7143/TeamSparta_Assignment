@@ -98,9 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f172a253290df74db93dd93bb71f3af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Damage: 0
   AttackSpeed: 1
   Point: {fileID: 1121286327283257613}
-  Target: {fileID: 0}
 --- !u!1 &7390097321584264720
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,6 +234,6 @@ MonoBehaviour:
   Animator: {fileID: 0}
   CurrentHP: 0
   MaxHP: 0
-  AttackSpeed: 0
-  Damage: 0
-  Gun: {fileID: 0}
+  AttackSpeed: 1
+  Damage: 20
+  Gun: {fileID: 3703219010260522486}

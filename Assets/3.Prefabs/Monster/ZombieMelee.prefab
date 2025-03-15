@@ -76,9 +76,9 @@ MonoBehaviour:
   AttackSpeed: 1
   Damage: 1
   Rigid: {fileID: 3585951680332571469}
+  Collider: {fileID: 3023353605732702738}
   SpawnIndex: 0
   MoveSpeed: 1.5
-  FixY: 0
 --- !u!61 &3023353605732702738
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -108,7 +108,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.2, y: 0.43}
@@ -132,7 +132,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 319310827380095937}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

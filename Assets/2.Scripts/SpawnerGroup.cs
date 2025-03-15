@@ -15,6 +15,6 @@ public class SpawnerGroup : MonoBehaviour
     private void RandomSpawn()
     {
         int rand = Random.Range(0, 3);
-        Spawners[0].Spawn();
+        Spawners[rand].Spawn();
     }
 }
